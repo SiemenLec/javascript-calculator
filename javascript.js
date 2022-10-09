@@ -55,7 +55,7 @@ document
     } else if (event.target.value === '=') {
       const outcome = eval(equation);
       console.log(`Equals: ${outcome}`);
-      output.innerText = outcome.toFixed(10);
+      output.innerText = outcome;
       equation = outcome.toString();
       numOnScreen = '0';
     }
