@@ -22,7 +22,13 @@ document
       numOnScreen += event.target.value;
       output.innerText = numOnScreen;
       console.log(equation);
-    } else if (event.target.value === '-') {
+    } else if (
+      event.target.value === '-' &&
+      equation.slice(-1) !== '-' &&
+      equation.slice(-1) !== '+' &&
+      equation.slice(-1) !== '/' &&
+      equation.slice(-1) !== '*'
+    ) {
       numOnScreen = '0';
       equation += event.target.value;
       output.innerText = numOnScreen;
@@ -53,10 +59,18 @@ document
       output.innerText = numOnScreen;
       console.info('CLEARED');
     } else if (event.target.value === '=') {
-      const outcome = eval(equation);
-      console.log(`Equals: ${outcome}`);
-      output.innerText = outcome;
-      equation = outcome.toString();
-      numOnScreen = '0';
+      try {
+        const outcome = eval(equation);
+        console.log(`Equals: ${outcome}`);
+        output.innerText = outcome;
+        equation = outcome.toString();
+        numOnScreen = '0';
+      } catch (error) {
+        console.error(error);
+        // Going to give error if an operator is pressed multiple times
+        output.innerText = 'ERROR';
+        equation = '0';
+        numOnScreen = '0';
+      }
     }
   });
